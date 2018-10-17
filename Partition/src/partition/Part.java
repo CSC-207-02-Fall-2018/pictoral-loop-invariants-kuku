@@ -57,10 +57,10 @@ public class Part {
 	 * @param k: the smallest element is to be found
 	 * @return: the k'th smallest element
 	 */
-	public static int select (int arr[],int n, int k) {
+	public static int select (int arr[], int k) {
 		
 		int left = 0;
-		int right = n-1;
+		int right = arr.length-1;
 		while (right-left > -1) {
 			
 			// check the middle of the array
@@ -100,18 +100,18 @@ public class Part {
 	 * average of two middle numbers in the middle
 	 * of the sorted array.
 	 */
-	public static int median(int[] arr,int n) {
+	public static int median(int[] arr) {
 		//calculate median for arrays of odd length
 		if (arr.length % 2 == 1) {
 			int middle = (arr.length+1)/2;
 			
-			return select(arr, n, middle);
+			return select(arr,  middle);
 		} else 
 		{
 			//calculate median for arrays of even length
 			int half_len = (arr.length)/2;
-			int middle_one = select(arr,n,half_len);
-			int middle_two = select(arr,n,half_len-1);
+			int middle_one = select(arr,half_len);
+			int middle_two = select(arr,half_len-1);
 			return (middle_one + middle_two)/2;
 		}
 	}
@@ -199,6 +199,9 @@ public class Part {
 				arr[blue_first] =arr[white_first];
 				arr[white_first] = temp;
 				
+				if (red_first == -1) {
+					red_first++;
+				}
 				
 			}
 			unproc_first++;
@@ -266,6 +269,9 @@ public class Part {
 				// if we find the red one, move on
 				if (arr[unproc_first] == red) {
 					unproc_first++;
+					if (red_first == -1) {
+						red_first++;
+					}
 				}
 			}
 			
@@ -279,10 +285,10 @@ public static void main (String args[]) {
 		int resultPart = partition(array,0,array.length-1);
 		System.out.println("\nresult partition: " + resultPart);
 		
-		int resultSelect = select(array, array.length, 7);
+		int resultSelect = select(array, 7);
 		System.out.println("\nresult select: " + resultSelect);
 		
-		int median = median(array,array.length );
+		int median = median(array );
 		System.out.println("\n median!: " + median);
 		
 		quicksort(array,array.length-1,0);
